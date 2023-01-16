@@ -21,13 +21,13 @@
             }
         }
     },
-    "version": "1.1.0",
+    "version": "1.1.1",
     "abstract": "Email validation that is consistent with the HTML5 spec.",
     "provides": {
         "pg_html5_email_address": {
             "file": "pg_html5_email_address--1.0.0.sql",
             "docfile": "README.md",
-            "version": "1.1.0"
+            "version": "1.1.1"
         }
     },
     "meta-spec": {

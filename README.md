@@ -1,7 +1,7 @@
 ---
 pg_extension_name: pg_html5_email_address
-pg_extension_version: 1.1.0
-pg_readme_generated_at: 2023-01-16 16:26:23.934916+00
+pg_extension_version: 1.1.1
+pg_readme_generated_at: 2023-01-16 19:43:32.855722+00
 pg_readme_version: 0.4.0
 ---
 
@@ -26,8 +26,8 @@ If you have an irrational fear of reading W3C specs (and I do urge you to get ov
 Finally there is the question of Unicode: are non-ASCII characters allowed in HTML5 email addresses? The HTML5 spec is unclear about this, but domain names definitely can (and now occasionally _do_) contain non-ASCII characters, and, since [RFC 6532](https://www.rfc-editor.org/rfc/rfc6532), this seems to be also formally allowed in email addresses. But HTML5 goes its own way, as do the browser makers. As of 2023-01-16,
 
 * WebKit does not allow unicode chacters in `<input type="email">` _at all_.
+* Neither does Safari.
 * Firefox allows unicode characters only in the domain part, not in the local part.
-* Safari …
 
 ## Reference
 
