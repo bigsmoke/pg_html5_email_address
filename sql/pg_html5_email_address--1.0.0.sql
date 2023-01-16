@@ -109,7 +109,7 @@ as $$
 declare
     _invalid_email text;
 begin
-    assert '#Rowan.de.man+Nélia-de~vrouw=$couple!@localhost' ~ html5_email_regexp(),
+    assert '#Rowan.de.man+Nelia-de~vrouw=$couple!@localhost' ~ html5_email_regexp(),
         'Yes, email addresses can contain all that, and more!';
 
     assert 'Rowan @example.com' !~ html5_email_regexp(),
@@ -124,6 +124,12 @@ begin
     assert 'Rowan@1' ~ html5_email_regexp(),
         'Yes, even if it''s just a number.';
 
+    assert 'Rówan@example.com' !~ html5_email_regexp(),
+        'Accents and other non-ASCII characters are not allowed in the local part.';
+
+    assert 'Rowan@éxamplé.com' !~ html5_email_regexp(),
+        'Nor are non-ASCII Unicode characters allowed in the domain part.';
+
     begin
         select 'rowan @example.com'::html5_email;
         raise assert_failure
@@ -135,9 +141,6 @@ begin
     assert 'Rowan@example.com'::html5_email = 'rowan@example.com'::html5_email,
         'The case-insensitive collation of the "html5_email" domain should have made ''Rowan@example.com'''
         ' and ''rowan@example.com'' count as equal.';
-
-    assert 'Rowan@example.com'::html5_email != 'Rowán@example.com'::html5_email,
-        'The collation should not pretend accents don''t exist.';
 
     assert (regexp_matches('Rowan.de.man@example.com', html5_email_regexp(true)))[1] = 'Rowan.de.man';
     assert (regexp_matches('Rowan.de.man@example.com', html5_email_regexp(true)))[2] = 'example.com';

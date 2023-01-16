@@ -1,7 +1,7 @@
 ---
 pg_extension_name: pg_html5_email_address
-pg_extension_version: 1.0.0
-pg_readme_generated_at: 2023-01-16 13:14:59.493288+00
+pg_extension_version: 1.1.0
+pg_readme_generated_at: 2023-01-16 16:26:23.934916+00
 pg_readme_version: 0.4.0
 ---
 
@@ -23,7 +23,11 @@ Apart from RFC 5322 its simultaneous too-looseness and not-loose-enoughness, sti
 
 If you have an irrational fear of reading W3C specs (and I do urge you to get over that fear), MDN, as usual, also has a most excellent write-up about HTML5 email address validation: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email#validation
 
-Finally there is the question of Unicode: are non-ASCII characters allowed in HTML5 email addresses. The HTML5 spec is unclear about this, but domain names definitely can (and often _do_) contain non-ASCII characters, and, since [RFC 6532](https://www.rfc-editor.org/rfc/rfc6532), this is also formally allowed in email addresses.
+Finally there is the question of Unicode: are non-ASCII characters allowed in HTML5 email addresses? The HTML5 spec is unclear about this, but domain names definitely can (and now occasionally _do_) contain non-ASCII characters, and, since [RFC 6532](https://www.rfc-editor.org/rfc/rfc6532), this seems to be also formally allowed in email addresses. But HTML5 goes its own way, as do the browser makers. As of 2023-01-16,
+
+* WebKit does not allow unicode chacters in `<input type="email">` _at all_.
+* Firefox allows unicode characters only in the domain part, not in the local part.
+* Safari …
 
 ## Reference
 
@@ -60,12 +64,12 @@ CREATE OR REPLACE FUNCTION ext.html5_email_regexp("with_capturing_groups$" boole
 RETURN (((('(?x)
 ^
 ('::text || CASE WHEN "with_capturing_groups$" THEN ''::text ELSE '?:'::text END) || '
-  [[:word:]0-9.!#$%&''''*+/=?^_`{|}~-]+
+  [a-zA-Z0-9.!#$%&''''*+/=?^_`{|}~-]+
 )
 @
 ('::text) || CASE WHEN "with_capturing_groups$" THEN ''::text ELSE '?:'::text END) || '
-  [[:word:]0-9](?:[[:word:]0-9-]{0,61}[[:word:]0-9])?
-  (?:[.][[:word:]0-9](?:[[:word:]0-9-]{0,61}[[:word:]0-9])?)*
+  [a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?
+  (?:[.][a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*
 )
 $
 '::text)
@@ -120,7 +124,7 @@ AS $procedure$
 declare
     _invalid_email text;
 begin
-    assert '#Rowan.de.man+Nélia-de~vrouw=$couple!@localhost' ~ html5_email_regexp(),
+    assert '#Rowan.de.man+Nelia-de~vrouw=$couple!@localhost' ~ html5_email_regexp(),
         'Yes, email addresses can contain all that, and more!';
 
     assert 'Rowan @example.com' !~ html5_email_regexp(),
@@ -135,6 +139,12 @@ begin
     assert 'Rowan@1' ~ html5_email_regexp(),
         'Yes, even if it''s just a number.';
 
+    assert 'Rówan@example.com' !~ html5_email_regexp(),
+        'Accents and other non-ASCII characters are not allowed in the local part.';
+
+    assert 'Rowan@éxamplé.com' !~ html5_email_regexp(),
+        'Nor are non-ASCII Unicode characters allowed in the domain part.';
+
     begin
         select 'rowan @example.com'::html5_email;
         raise assert_failure
@@ -146,9 +156,6 @@ begin
     assert 'Rowan@example.com'::html5_email = 'rowan@example.com'::html5_email,
         'The case-insensitive collation of the "html5_email" domain should have made ''Rowan@example.com'''
         ' and ''rowan@example.com'' count as equal.';
-
-    assert 'Rowan@example.com'::html5_email != 'Rowán@example.com'::html5_email,
-        'The collation should not pretend accents don''t exist.';
 
     assert (regexp_matches('Rowan.de.man@example.com', html5_email_regexp(true)))[1] = 'Rowan.de.man';
     assert (regexp_matches('Rowan.de.man@example.com', html5_email_regexp(true)))[2] = 'example.com';

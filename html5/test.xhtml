@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>HTML5 &lt;input type="email"&gt; validation</title>
+<style>
+html {
+  margin: 0;
+  padding: 0;
+  font-size: 1.2em;  /* Set rem */
+  background-color: #111115;
+}
+body {
+  max-width: 50rem;
+  margin: 0 auto;
+  font-family: sans-serif;
+  color: #ddddef;
+}
+header {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: #222229;
+  padding: 2em;
+  color: #aaaacf;
+}
+h1 {
+  margin: 0;
+  font-family: serif;
+}
+main {
+  padding: 1em;
+}
+hr {
+  margin: 2em 0 3em 0;
+  border: none;
+  height: 2px;
+  background-color: #88888f;
+}
+li {
+  margin-top: 1em;
+}
+input {
+  border: 1px solid #888;
+  padding: .25em .5em;
+  font-size: 0.7rem;
+}
+input:valid {
+  border: 1px solid #060;
+  background-color: #afa;
+}
+input:invalid {
+  border: 1px solid #f00;
+  background-color: #faa;
+}
+a {
+  color: inherit;
+  text-decoration: underline;
+}
+</style>
+  </head>
+  <body>
+    <header>
+      <h1>HTML5 <code>&lt;input type="email"&gt;</code> validation tests</h1>
+    </header>
+    <main>
+      <p>
+      This XHTML5 file serves to test how browsers implement HTML5 <code>&lt;input type="email"&gt;</code> validation, and thus how the <tt>pg_html5_email_address</tt> PostgreSQL extension should handle this validation to be in sync with both the HTML5 spec and the implementations thereof.
+      </p>
+      <p>
+      Apologies to the red-blue color blind (like my own brother)…
+      </p>
+      <hr/>
+      <p>
+      </p>
+        <ul>
+          <li>
+            It is obvious that an email address such as <input type="email" value="rowan@example.com"/> should be valid.
+          </li>
+          <li>
+            But, to many people, it is less obvious that <input type="email" value="#rowan.van-der-molen+nelia~lamaroso=$*@example.com"/> is also a valid email address.
+          </li>
+          <li>
+            Pre-HTML5, when developers relied on there own guesswork to half-arse email validation rules, these rules often ended up being so strict that even an email address such as <input type="email" value="bigsmoke+pg_html5_email_address@gmail.com"/> was then deemed to be incorrect. That is annoying because many people relied on, for example <input type="email" value="theirname+something@gmail.com"/>, to filter email from different services differently.
+          </li>
+          <li>
+            And it's hard to blame them. RFC 5322 is notoriously vague and complicated. It has needless complications such as … comments: <input type="email" value="jane.doe(comment)@example.com"/> is a valid email address as per RFC 5322. The HTML5 spec disagrees. The HTML5 spec also doesn't allow spaces in the local part of an email address, such as in <input type="email" value='"Jane Doe"@example.com'/>.
+          </li>
+          <li>
+            Browser makers appear to have mixed feelings about whether unicode should be allowed in the domain name part of the email address: <input type="email" value="rowan@éxÄmple.com"/>.
+          </li>
+          <li>
+            But they seem to agree that Unicode in the local part is bad: <input type="email" value="rowán@example.com"/>. <a href="https://youtu.be/Rr8ljRgcJNM">“We're all living in Amerika”</a>?
+          </li>
+        </ul>
+    </main>
+  </body>
+</html>
+<!-- vim: set expandtab tabstop=2 shiftwidth=2: -->
