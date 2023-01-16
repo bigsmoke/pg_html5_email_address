@@ -1,0 +1,53 @@
+{
+    "name": "pg_html5_email_address",
+    "tags": [
+        "domain",
+        "email",
+        "html5",
+        "plpgsql",
+        "type",
+        "validation"
+    ],
+    "license": "gpl_3",
+    "prereqs": {
+        "test": {
+            "requires": {
+                "pgtap": 0
+            }
+        },
+        "develop": {
+            "recommends": {
+                "pg_readme": 0
+            }
+        }
+    },
+    "version": "1.0.0",
+    "abstract": "Email validation that is consistent with the HTML5 spec.",
+    "provides": {
+        "pg_html5_email_address": {
+            "file": "pg_html5_email_address--1.0.0.sql",
+            "docfile": "README.md",
+            "version": "1.0.0"
+        }
+    },
+    "meta-spec": {
+        "url": "https://pgxn.org/spec/",
+        "version": "1.0.0"
+    },
+    "resources": {
+        "homepage": "https://blog.bigsmoke.us/tag/pg_html5_email_address",
+        "bugtracker": {
+            "web": "https://github.com/bigsmoke/pg_html5_email_address/issues"
+        },
+        "repository": {
+            "url": "https://github.com/bigsmoke/pg_html5_email_address.git",
+            "web": "https://github.com/bigsmoke/pg_html5_email_address",
+            "type": "git"
+        }
+    },
+    "maintainer": [
+        "Rowan Rodrik van der Molen <rowan@bigsmoke.us>"
+    ],
+    "description": "pg_html5_email_address is a tiny PostgreSQL extension that offers email address validation that isconsistent with the <input type=\"email\"> validation from the HTML5 spec.",
+    "generated_by": "`select pg_html5_email_address_meta_pgxn()`"
+}
