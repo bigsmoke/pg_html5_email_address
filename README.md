@@ -1,7 +1,7 @@
 ---
 pg_extension_name: pg_html5_email_address
-pg_extension_version: 1.1.2
-pg_readme_generated_at: 2023-02-09 11:50:26.981819+00
+pg_extension_version: 1.2.0
+pg_readme_generated_at: 2023-02-09 11:54:46.304874+00
 pg_readme_version: 0.5.6
 ---
 
