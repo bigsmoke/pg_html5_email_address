@@ -1,8 +1,8 @@
 ---
 pg_extension_name: pg_html5_email_address
-pg_extension_version: 1.1.1
-pg_readme_generated_at: 2023-01-16 19:43:32.855722+00
-pg_readme_version: 0.4.0
+pg_extension_version: 1.1.2
+pg_readme_generated_at: 2023-02-09 11:50:26.981819+00
+pg_readme_version: 0.5.6
 ---
 
 # The `pg_html5_email_address` PostgreSQL extension
@@ -55,7 +55,7 @@ Function-local settings:
 
   *  `SET pg_readme.include_this_routine_definition TO true`
 
-```
+```sql
 CREATE OR REPLACE FUNCTION ext.html5_email_regexp("with_capturing_groups$" boolean DEFAULT false)
  RETURNS text
  LANGUAGE sql
@@ -75,7 +75,7 @@ $
 '::text)
 ```
 
-#### Function: `pg_html5_email_address_meta_pgxn ()`
+#### Function: `pg_html5_email_address_meta_pgxn()`
 
 Returns the JSON meta data that has to go into the `META.json` file needed for [PGXN—PostgreSQL Extension Network](https://pgxn.org/) packages.
 
@@ -90,7 +90,7 @@ Function return type: `jsonb`
 
 Function attributes: `STABLE`
 
-#### Function: `pg_html5_email_address_readme ()`
+#### Function: `pg_html5_email_address_readme()`
 
 Generates the text for a `README.md` in Markdown format using the amazing power of the `pg_readme` extension.
 
@@ -104,7 +104,7 @@ Function-local settings:
   *  `SET pg_readme.include_view_definitions_like TO true`
   *  `SET pg_readme.include_routine_definitions_like TO {test__%}`
 
-#### Procedure: `test__pg_html5_email_address ()`
+#### Procedure: `test__pg_html5_email_address()`
 
 Tests the objects belonging to the `pg_html5_email_address` Postgres extension.
 
@@ -115,7 +115,7 @@ Procedure-local settings:
   *  `SET pg_readme.include_this_routine_definition TO true`
   *  `SET plpgsql.check_asserts TO true`
 
-```
+```sql
 CREATE OR REPLACE PROCEDURE ext.test__pg_html5_email_address()
  LANGUAGE plpgsql
  SET "pg_readme.include_this_routine_definition" TO 'true'
@@ -189,4 +189,4 @@ The author of `pg_html5_email_address`—Rowan—deemed it useful to split off t
 
 ## Colophon
 
-This `README.md` for the `pg_html5_email_address` `extension` was automatically generated using the [`pg_readme`](https://github.com/bigsmoke/pg_readme) PostgreSQL extension.
+This `README.md` for the `pg_html5_email_address` extension was automatically generated using the [`pg_readme`](https://github.com/bigsmoke/pg_readme) PostgreSQL extension.
