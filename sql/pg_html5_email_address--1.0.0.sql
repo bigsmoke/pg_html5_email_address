@@ -275,10 +275,8 @@ exception
 end;
 $plpgsql$;
 
--- Add previously missing comment.
-comment
-    on function pg_html5_email_address_readme()
-    is $markdown$Generates the text for a `README.md` in Markdown format using the amazing power of the `pg_readme` extension.
+comment on function pg_html5_email_address_readme() is
+$markdown$Generates the text for a `README.md` in Markdown format using the amazing power of the `pg_readme` extension.
 
 This function temporarily installs `pg_readme` if it is not already installed in the current database.
 $markdown$;

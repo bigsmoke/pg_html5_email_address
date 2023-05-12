@@ -1,8 +1,8 @@
 ---
 pg_extension_name: pg_html5_email_address
-pg_extension_version: 1.2.1
-pg_readme_generated_at: 2023-02-09 15:40:17.834721+00
-pg_readme_version: 0.5.6
+pg_extension_version: 1.2.2
+pg_readme_generated_at: 2023-05-12 20:08:15.935809+01
+pg_readme_version: 0.6.2
 ---
 
 # The `pg_html5_email_address` PostgreSQL extension
@@ -28,6 +28,8 @@ Finally there is the question of Unicode: are non-ASCII characters allowed in HT
 * WebKit does not allow unicode chacters in `<input type="email">` _at all_.
 * Neither does Safari.
 * Firefox allows unicode characters only in the domain part, not in the local part.
+
+This has been tested using the `html5/test.xhtml` page in the [`pg_html5_email_address` source repository](https://github.com/bigsmoke/pg_html5_email_address).
 
 ## Reference
 
@@ -77,7 +79,7 @@ $
 
 #### Function: `pg_html5_email_address_meta_pgxn()`
 
-Returns the JSON meta data that has to go into the `META.json` file needed for [PGXN—PostgreSQL Extension Network](https://pgxn.org/) packages.
+Returns the JSON meta data that has to go into the `META.json` file needed for PGXN—PostgreSQL Extension Network—packages.
 
 The `Makefile` includes a recipe to allow the developer to: `make META.json` to
 refresh the meta file with the function's current output, including the
@@ -112,17 +114,17 @@ The routine name is compliant with the `pg_tst` extension.  An intentional choic
 
 Procedure-local settings:
 
+  *  `SET search_path TO ext, pg_temp`
   *  `SET pg_readme.include_this_routine_definition TO true`
   *  `SET plpgsql.check_asserts TO true`
 
 ```sql
 CREATE OR REPLACE PROCEDURE ext.test__pg_html5_email_address()
  LANGUAGE plpgsql
+ SET search_path TO 'ext', 'pg_temp'
  SET "pg_readme.include_this_routine_definition" TO 'true'
  SET "plpgsql.check_asserts" TO 'true'
 AS $procedure$
-declare
-    _invalid_email text;
 begin
     assert '#Rowan.de.man+Nelia-de~vrouw=$couple!@localhost' ~ html5_email_regexp(),
         'Yes, email addresses can contain all that, and more!';
@@ -181,11 +183,18 @@ CREATE DOMAIN html5_email AS text
 
 ## `pg_html5_email_address` raison d'etre
 
-The author of `pg_html5_email_address`—Rowan—deemed it useful to split off this tiny extension from the PostgreSQL backend of the [FlashMQ SaaS MQTT hosting service](https://www.flashmq.com/).  Even though the objects in this extension almost seem too insignificant to justify an extension, Rowan couldn't think of any other extension to put this in.  And there really is no lower limit to how small PostgreSQL extensions may be.
+The author of `pg_html5_email_address`—Rowan—deemed it useful to split off this tiny extension from the PostgreSQL backend of the [FlashMQ SaaS MQTT hosting service](https://www.flashmq.com/).  Even though the small handful of objects in this extension almost seem too insignificant to justify an extension, such a bundle of code and documentation is a wholesome way to share the knowledge of how to deal cleanly with HTML5-compatible email addresses in PostgreSQL.
+
+And, of course, if you don't want to depend on (another) extension, please feel free to just copy-paste whatever you need from this extension.  Pro-tip: take note of which version you copied.
 
 ## Authors & contributors
 
-* Rowan Rodrik van der Molen
+* Rowan Rodrik van der Molen—the original (and so far only) author of `pg_html5_email_address`—identifies more as a [restorative farmer, permaculture writer and reanimist](https://sapienshabitat.com) than as a techologist.  Nevertheless, computer technology has remained stubbornly intertwined with his life, the trauma of which he has tried to process by writing the book on [_Why Programming Still Sucks_](https://www.whyprogrammingstillsucks.com/) ([@ysosuckysoft](https://twitter.com/ysosuckysoft)).  As of 2023, he is applying his painfully earned IT wisdom to a robust [MQTT SaaS service](https://www.flashmq.com/), and he does so alternatingly:
+
+    - from within a permaculture project in central Portugal;
+    - and his beautiful [holiday home for rent in the forests of Drenthe](https://www.schuilplaats-norg.nl/), where his work place looks out over his lush ecological garden and a private heather field.
+
+  His day to day [ramblings on technology](https://blog.bigsmoke.us/) are sporadically posted to his blog.
 
 ## Colophon
 
