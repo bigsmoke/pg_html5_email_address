@@ -1,8 +1,8 @@
 ---
 pg_extension_name: pg_html5_email_address
-pg_extension_version: 1.2.2
-pg_readme_generated_at: 2023-05-12 20:08:15.935809+01
-pg_readme_version: 0.6.2
+pg_extension_version: 1.2.3
+pg_readme_generated_at: 2023-11-28 17:17:56.306652+00
+pg_readme_version: 0.6.4
 ---
 
 # The `pg_html5_email_address` PostgreSQL extension

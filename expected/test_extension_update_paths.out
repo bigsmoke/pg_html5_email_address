@@ -1,0 +1,12 @@
+\set ECHO none
+NOTICE:  CREATE EXTENSION pg_html5_email_address WITH VERSION '1.2.2' CASCADE
+NOTICE:  ALTER EXTENSION pg_html5_email_address UPDATE TO '1.2.3'
+NOTICE:  CALL test__pg_html5_email_address()
+NOTICE:  DROP EXTENSION pg_html5_email_address CASCADE
+NOTICE:  CREATE EXTENSION pg_html5_email_address WITH VERSION '1.0.0' CASCADE
+NOTICE:  ALTER EXTENSION pg_html5_email_address UPDATE TO '1.2.3'
+NOTICE:  CALL test__pg_html5_email_address()
+NOTICE:  DROP EXTENSION pg_html5_email_address CASCADE
+NOTICE:  CREATE EXTENSION pg_html5_email_address WITH VERSION '1.2.3' CASCADE
+NOTICE:  CALL test__pg_html5_email_address()
+NOTICE:  DROP EXTENSION pg_html5_email_address CASCADE
